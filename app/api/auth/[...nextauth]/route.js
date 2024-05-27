@@ -1,7 +1,7 @@
 import NextAuth from "next-auth";
 import FacebookProvider from "next-auth/providers/facebook";
 import GoogleProvider from "next-auth/providers/google";
-import connectDb from "@/lib/mongodb";
+import dbconnect from "@/lib/mongodb";
 import User from "@/models/user";
 
 const handler = NextAuth({
@@ -17,27 +17,15 @@ const handler = NextAuth({
   ],
   callbacks: {
     async signIn({ user, account }) {
-      console.log(user);
+      // console.log(user);
+      // console.log(account);
+      await dbconnect();
       if (account.provider === "google") {
         const { name, email, image } = user;
         try {
-          await connectDb();
           const userExist = await User.findOne({ email });
-          if (!userExist) {
-            const res = await fetch(
-              "https://dental-ease-one.vercel.app/api/user",
-              {
-                method: "POST",
-                headers: {
-                  "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                  name,
-                  email,
-                  image,
-                }),
-              }
-            );
+          if (!userExist) {            
+            const res = await User.create({name,email,image});
             if (res.ok) {
               return user;
             }

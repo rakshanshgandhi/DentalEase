@@ -73,8 +73,8 @@ export default function LoginPage() {
           <hr className=' mt-3'/>
           <div className="mt-4">
             <button
-              onClick={() => signIn('google', {
-                callbackUrl: '/home'
+              onClick={() => signIn('google',{
+                callbackUrl : '/home'
               })}
               className="w-full bg-gray-100 text-black py-2 rounded-lg mb-2 flex items-center justify-center"
             >
