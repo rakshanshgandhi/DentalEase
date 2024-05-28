@@ -79,7 +79,7 @@ export default function LoginPage() {
               <img className="w-6 h-6 mr-2" src='/google.svg' alt='google logo' />
               Sign in with Google
             </button>
-            <p className="text-center mt-4">Don't have an account?{' '}
+            <p className="text-center mt-4">Don&apos;t have an account?{' '}
             <button
               type="button"
               onClick={onSignup}
