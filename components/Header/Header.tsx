@@ -1,66 +1,28 @@
-"use client";
-import React from "react";
-import Link from "next/link";
-import { signOut, useSession } from "next-auth/react";
 
-const Header = () => {
-  
-  const handleSignOut = () => {
-    signOut({ callbackUrl: "/login" });
-    console.log("Sign out");
-  };
+import { UserButton, auth } from '@clerk/nextjs';
+import Link from 'next/link';
 
-  const handleSignIn = () => {
-    window.location.href = "/login";
-  };
-
-  const session = useSession();
+export default async function Header() {
+  const { userId } = auth();
 
   return (
-    <header className="bg-blue-600 text-white shadow-md">
-      <nav className="container mx-auto p-4 flex justify-between items-center">
-        <div className="text-lg font-bold">
-          <Link
-            href="/"
-            className="hover:text-gray-200 transition duration-200"
-          >
-            DentalEase
-          </Link>
+    <div className='bg-blue-600 text-neutral-100'>
+      <div className='container mx-auto flex items-center justify-between py-4'>
+        <Link href='/'>DentalEase</Link>
+        <div>
+          {userId ? (
+            <div className='flex gap-4 items-center'>
+              <Link href='/dashboard'>Dashboard</Link>
+              <UserButton afterSignOutUrl='/' />
+            </div>
+          ) : (
+            <div className='flex gap-4 items-center'>
+              <Link href='/sign-up'>Sign up</Link>
+              <Link href='/sign-in'>Sign In</Link>
+            </div>
+          )}
         </div>
-        {session.status === "authenticated" ? (
-          <ul className="flex space-x-4 items-center">
-            <li>
-              <Link
-                href="/home"
-                className="hover:text-gray-200 transition duration-200"
-              >
-                Home
-              </Link>
-            </li>
-            <li>
-              <button
-                onClick={handleSignOut}
-                className="hover:text-blue-700 transition duration-200 bg-white px-4 py-2 rounded text-blue-600"
-              >
-                Sign Out
-              </button>
-            </li>
-          </ul>
-        ) : (
-          <ul>
-            <li>
-              <button
-                onClick={handleSignIn}
-                className="hover:text-blue-700 transition duration-200 bg-white px-4 py-2 rounded text-blue-600"
-              >
-                Sign In
-              </button>
-            </li>
-          </ul>
-        )}
-      </nav>
-    </header>
+      </div>
+    </div>
   );
-};
-
-export default Header;
+}
