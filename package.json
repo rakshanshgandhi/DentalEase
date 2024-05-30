@@ -9,7 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@clerk/nextjs": "^4.31.1",
+    "@clerk/nextjs": "^4.30.0",
     "axios": "^1.7.2",
     "bcryptjs": "^2.4.3",
     "jsonwebtoken": "^9.0.2",
@@ -18,7 +18,8 @@
     "next-auth": "^4.24.7",
     "nodemailer": "^6.9.13",
     "react": "^18",
-    "react-dom": "^18"
+    "react-dom": "^18",
+    "svix": "^1.24.0"
   },
   "devDependencies": {
     "@types/bcryptjs": "^2.4.6",
