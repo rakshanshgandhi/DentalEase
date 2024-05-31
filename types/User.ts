@@ -1,10 +1,11 @@
 export interface User {
-  id: string;
-  firstName: string;
-  lastName: string;
-  primaryEmailAddressId: string;
-  emailAddresses: { id: string; emailAddress: string }[];
-  publicMetadata: {
-    role: string;
-  };
-}
+    id: string;
+    firstName: string | null;
+    lastName: string | null; 
+    emailAddresses: { id: string; emailAddress: string }[]; // Assuming email address is always available
+    primaryEmailAddressId: string;
+    publicMetadata: {
+      role: string;
+    };
+  }
+  
