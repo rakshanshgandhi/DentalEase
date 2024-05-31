@@ -1,4 +1,6 @@
 import { auth, currentUser } from "@clerk/nextjs";
+import { checkRole } from "@/utils/roles";
+import { redirect } from "next/navigation";
 
 export default async function DashboardPage() {
   const { userId } = auth();
@@ -7,6 +9,13 @@ export default async function DashboardPage() {
   if (!userId || !user) {
     return <div>You are not logged in</div>;
   }
+  if (checkRole("admin")) {
+    redirect("/admin/dashboard");
+  }
+  if (checkRole("doctor")) {
+    redirect("/doctor/dashboard");
+  }
+  
 
   return (
     <div className="mt-10 text-start max-w-xl mx-auto bg-neutral-200 p-5 rounded">
