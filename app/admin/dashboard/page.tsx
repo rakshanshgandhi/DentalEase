@@ -13,7 +13,7 @@ export default async function AdminDashboard(params: {
   }
 
   const query = params.searchParams.search;
-  const users: User[] = query
+  const users: any = query
     ? await clerkClient.users.getUserList({ query }).then((clerkUsers) =>
         clerkUsers.map((clerkUser) => ({
           ...clerkUser,
